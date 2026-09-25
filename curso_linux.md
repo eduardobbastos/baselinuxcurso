@@ -30,6 +30,18 @@ O MobaXterm é a ferramenta ideal para este treinamento porque permite:
 
 ## 📚 Estrutura do Curso
 
+### [Módulo 0 — Fundamentos do Terminal e Anatomia do Linux](modulo_00_fundamentos_terminal.md)
+
+Comandos, opções e argumentos, senhas silenciosas, atalhos de console, `sudo` e a árvore do FHS.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 0 | Fundamentos da Shell & FHS | 0.1 Sobrevivência no Console: Navegação Espacial e Autocompletar |
+| | | 0.2 A anatomia do `sudo`, senhas silenciosas e controle de processos |
+| | | 0.3 Explorando o FHS: Inspeção Prática das Pastas Fundamentais |
+
+---
+
 ### [Módulo 1 — Navegação, Inspeção e Manipulação de Arquivos](modulo_01_navegacao_inspecao.md)
 
 Domínio dos comandos fundamentais para explorar, criar e organizar o filesystem.
@@ -99,6 +111,78 @@ Configuração de SSH no WSL e acesso remoto seguro via MobaXterm.
 
 ---
 
+### [Módulo 6 — Gerenciamento de Usuários e Grupos](modulo_06_usuarios.md)
+
+Criação, administração de privilégios, grupos e políticas de segurança de contas.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 9 | Criação e Gestão de Usuários | 6.1 Criação de Usuários com `useradd` e `adduser` |
+| | | 6.2 Modificação de Usuários e Gestão de Grupos |
+| | | 6.3 Remoção, Auditoria e Políticas de Senha |
+
+---
+
+### [Módulo 7 — Manipulação Avançada de Dados com `dd`](modulo_07_dd.md)
+
+Operações cirúrgicas de baixo nível, blocos, testes de I/O e extração com offset.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 10 | Comando `dd` (Dataset Definition) | 7.1 Criação com Tamanho Exato e Comparação de Block Size |
+| | | 7.2 Dados Aleatórios, Teste de I/O e `/dev/null` |
+| | | 7.3 Cópia Parcial com `skip`, `seek` e Extração Cirúrgica |
+
+---
+
+### [Módulo 8 — Visualização e Criação de Conteúdo com `cat`](modulo_08_cat.md)
+
+Inspeção rápida, concatenação, criação sem editores e pipelines de fluxo de texto.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 11 | Comando `cat` e Concatenação | 8.1 Visualização, Numeração e Inspeção de Conteúdo |
+| | | 8.2 Criação de Arquivos com `cat` e Here Document |
+| | | 8.3 Concatenação, Pipelines e Processamento |
+
+---
+
+### [Módulo 9 — Editor de Texto `nano`](modulo_09_nano.md)
+
+Edição rápida e acessível em terminal, atalhos produtivos, busca e customização.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 12 | Editor `nano` no Terminal | 9.1 Criação e Edição Básica com `nano` |
+| | | 9.2 Busca, Substituição e Manipulação de Blocos |
+| | | 9.3 Edição de Arquivos do Sistema e Configuração (`.nanorc`) |
+
+---
+
+### [Módulo 10 — Editor `vi` / `vim`](modulo_10_vi.md)
+
+O padrão universal Unix: modos de operação, eficiência cirúrgica e recuperação emergencial.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 13 | Editor `vi`/`vim` Modal | 10.1 Primeiros Passos: Navegar, Inserir e Salvar |
+| | | 10.2 Edição Avançada: Copiar, Colar, Deletar e Substituir |
+| | | 10.3 Cenários Reais: Recuperação, Modo Visual e Comandos Shell |
+
+---
+
+### [Módulo 11 — Expansão Enterprise: Rocky Linux no WSL](modulo_11_rocky_linux_wsl.md)
+
+Ecossistema RHEL/CentOS/Rocky, SSH empresarial e repetição cruzada dos Módulos 1 e 2.
+
+| # | Tópico | Atividades |
+|---|--------|------------|
+| 14 | Rocky Linux & Portabilidade RHEL | 11.1 Instalação do Rocky Linux no WSL e Configuração do SSH |
+| | | 11.2 Repetição Prática do Módulo 1 no Rocky Linux (`ls`, `mkdir`, `cp -a`, `touch`) |
+| | | 11.3 Repetição Prática do Módulo 2 no Rocky Linux (`find -exec`, `dd`, I/O) |
+
+---
+
 ## 🗺️ Mapeamento MobaXterm × Atividades
 
 | Ação no Terminal | Recurso do MobaXterm para Inspeção Visual |
@@ -110,6 +194,14 @@ Configuração de SSH no WSL e acesso remoto seguro via MobaXterm.
 | Conexão SSH ao WSL | **Session → SSH:** Configurar host, porta e usuário para conexão persistente |
 | Transferência de arquivos | **Drag & Drop SFTP** ou **SCP/SFTP** via linha de comando |
 | Gerenciamento de chaves | **Tools → MobaKeyGen:** Interface gráfica para geração e gestão de chaves SSH |
+| Usuários e Diretórios Home | **Navegação SFTP:** Inspecionar permissões de `/home/` e arquivos de configuração |
+| Arquivos binários/dd | **Painel SFTP & Text Editor:** Conferir tamanhos exatos e tentar abrir streams |
+
+---
+
+## 📖 Material Complementar
+
+- **[Gabarito Comentado e Respostas de Cenários (gabarito_exercicios.md)](gabarito_exercicios.md)** — Respostas analíticas comentadas, comandos recomendados e justificativas de segurança para todas as perguntas reflexivas dos 10 módulos.
 
 ---
 
@@ -125,23 +217,11 @@ Configuração de SSH no WSL e acesso remoto seguro via MobaXterm.
 sudo apt update && sudo apt upgrade -y
 
 # Instalar ferramentas essenciais
-sudo apt install openssh-server tree hexdump -y
+sudo apt install openssh-server tree nano vim bsdmainutils -y
 
 # Iniciar o serviço SSH
 sudo service ssh start
 ```
-
----
-
-## 📊 Progresso do Aluno
-
-| Módulo | Status |
-|--------|--------|
-| Módulo 1 — Navegação e Manipulação | ⬜ Pendente |
-| Módulo 2 — Busca e Manipulação | ⬜ Pendente |
-| Módulo 3 — Permissões | ⬜ Pendente |
-| Módulo 4 — Automação | ⬜ Pendente |
-| Módulo 5 — SSH e WSL | ⬜ Pendente |
 
 ---
 

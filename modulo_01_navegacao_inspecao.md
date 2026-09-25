@@ -429,6 +429,8 @@ find lab_linux/backup/data_archive/ -type f | wc -l
 
 ---
 
+[⬅ Anterior: Módulo 0 — Fundamentos do Terminal](modulo_00_fundamentos_terminal.md)
+
 [➡ Próximo: Módulo 2 — Busca e Manipulação de Baixo Nível](modulo_02_busca_manipulacao.md)
 
 [⬅ Voltar ao Índice](curso_linux.md)

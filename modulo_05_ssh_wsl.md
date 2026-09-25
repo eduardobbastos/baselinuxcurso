@@ -123,14 +123,50 @@ uname -a
 
 11. Observe que o painel SFTP à esquerda do MobaXterm agora mostra os arquivos do WSL.
 
-> **⚠️ Nota WSL:** Se `localhost` não funcionar, use o IP real do WSL. Em WSL2, o endereço pode variar a cada reinício.
-
-> **💡 Dica:** Para iniciar o SSH automaticamente no WSL, adicione ao seu `~/.bashrc`:
+> **💡 Dica de Automação no WSL:** Para garantir que o serviço SSH inicie sempre que você abrir o terminal do WSL, adicione ao seu `~/.bashrc`:
 > ```bash
 > if ! pgrep -x sshd > /dev/null; then
 >     sudo service ssh start 2>/dev/null
 > fi
 > ```
+
+---
+
+### 🔧 Troubleshooting MobaXterm × WSL (Diagnóstico de Conexão)
+
+Se você encontrar dificuldades para conectar via SSH ou SFTP, verifique os 4 problemas mais comuns:
+
+#### 1. Conexão recusada em `localhost` / `127.0.0.1` (WSL 2 em modo NAT)
+No WSL 2 padrão, a máquina virtual roda atrás de um switch Hyper-V com IP próprio.
+- **Diagnóstico:** No terminal do WSL, execute:
+  ```bash
+  hostname -I
+  ```
+- **Solução:** Em vez de `localhost` ou `127.0.0.1`, insira no campo *Remote host* do MobaXterm o primeiro IP retornado pelo comando acima (exemplo: `172.28.160.10`).
+
+#### 2. Serviço SSH parado após reiniciar a máquina Windows
+Diferente de um servidor dedicado com `systemd`, o WSL finaliza seus processos quando todas as janelas são fechadas.
+- **Solução:** Abra o terminal do WSL e suba o serviço:
+  ```bash
+  sudo service ssh start
+  sudo service ssh status
+  ```
+
+#### 3. Chave de Host alterada (*Host Key Verification Failed*)
+Se você reinstalou ou reiniciou distribuições WSL com o mesmo IP, o cliente SSH pode acusar choque de chaves antigas.
+- **Solução no MobaXterm:** Remova a entrada conflitante do cache de chaves locais:
+  ```bash
+  ssh-keygen -R 127.0.0.1
+  # ou
+  ssh-keygen -R <IP_DO_WSL>
+  ```
+
+#### 4. Firewall do Windows bloqueando o tráfego da porta 22
+Se o MobaXterm der erro de *Connection timed out* ao tentar o IP da vEthernet:
+- **Solução (no PowerShell como Administrador):**
+  ```powershell
+  New-NetFirewallRule -Name "WSL_SSH" -DisplayName "WSL SSH (Porta 22)" -Direction Inbound -LocalPort 22 -Protocol TCP -Action Allow
+  ```
 
 ---
 
@@ -329,5 +365,7 @@ sudo service ssh restart
 ---
 
 [⬅ Anterior: Módulo 4 — Automação e Scripts](modulo_04_automacao_scripts.md)
+
+[➡ Próximo: Módulo 6 — Gerenciamento de Usuários e Grupos](modulo_06_usuarios.md)
 
 [⬅ Voltar ao Índice](curso_linux.md)
